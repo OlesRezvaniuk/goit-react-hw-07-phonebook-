@@ -50,6 +50,7 @@ export const phonebookSlice = createSlice({
       state.status = status.loading;
     },
     [deleteContactsData.fulfilled](state, action) {
+      state.status = status.success;
       state.items = state.items.filter(
         contact => contact.id !== action.payload.id
       );

@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { setContactsData } from 'redux/Phonebook/contactsOperations';
 import { useDispatch } from 'react-redux';
 import { AddButton } from '../AddButton/AddButton';
+import { useSelector } from 'react-redux';
+import { selectorFilteredContacts } from 'redux/Phonebook/Selector';
 import {
   FormEl,
   FormTitle,
@@ -16,6 +18,7 @@ export const Form = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState(''); //local
   const [number, setNumber] = useState(''); //local
+  const contactsArr = useSelector(selectorFilteredContacts);
 
   const handleName = e => {
     setName(e.currentTarget.value);
@@ -31,7 +34,11 @@ export const Form = () => {
       number,
       id: shortid(),
     };
-    dispatch(setContactsData(newName));
+
+    contactsArr.find(contact => contact.name === newName.name)
+      ? alert(`${newName.name} is already in contacts`)
+      : dispatch(setContactsData(newName));
+
     reset();
   };
 
