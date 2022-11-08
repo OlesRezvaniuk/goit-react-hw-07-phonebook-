@@ -41,6 +41,7 @@ export const phonebookSlice = createSlice({
 
     [setContactsData.fulfilled](state, action) {
       state.items = [...state.items, action.payload];
+      state.status = status.success;
     },
 
     [setContactsData.rejected](state) {
